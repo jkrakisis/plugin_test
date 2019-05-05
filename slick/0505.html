@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./slick.css">
+    <link rel="stylesheet" type="text/css" href="./slick-theme.css">
+    <style>
+    html,body{margin: 0; padding: 0;}
+    * {box-sizing: border-box;}
+    .slider {width:50%; margin:100px auto; }
+    .slick-slide{margin: 0 20px;}
+    .slick-slide img {width: 100%}
+    .slick-prev::before,
+    .slick-next::before{color:#000;}
+    .slick-slide{transition:all ease-in-out .3s; opacity:.2;}
+    .slick-active{opacity: .5;}
+    .slick-current{opacity: 1;}
+    .buttons{display: inline-block; margin-left:46.5%; margin-top:100px; color: #000;}
+    .slideCount {display: inline-block;  color: #000; }
+</style>
+</head>
+<body>
+    <div class="slideCount"></div>
+    <section class="variable slider">
+        
+      <div>
+        <a href=""><img src="./list_03.jpg"></a>
+      </div>
+      <div>
+          <a href=""><img src="./list_05.jpg"></a>
+      </div>
+      <div>
+        <img src="http://placehold.it/100x300?text=3">
+      </div>
+      <div>
+        <img src="http://placehold.it/200x300?text=4">
+      </div>
+      <div>
+        <img src="http://placehold.it/350x300?text=5">
+      </div>
+      <div>
+        <img src="http://placehold.it/300x300?text=6">
+      </div>
+     
+     
+    </section>
+    
+    <div class="buttons">
+        <button class="pause">멈춤</button>
+        <!-- <button class="play">Play</button> -->
+    </div>
+     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+      <script src="./slick.js" type="text/javascript" charset="utf-8"></script>
+      <script type="text/javascript">
+        $(document).on('ready', function() {
+         
+          //custom
+        var slideCount = $('.slideCount');
+        var slickSlide = $('.slider');
+
+        slickSlide.on('init reInit afterChange', function (event, slick, currentSlide, nextSlide) {
+    //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
+    var i = (currentSlide ? currentSlide : 0) + 1;
+    $('.slideCount').html('<span class="slideCountItem">' + i + '</span> ' + '/' + ' <span class="slideCountAll">' + slick.slideCount + '</span>');
+  });
+          $(".variable").slick({
+            dots: true,
+            infinite: true,
+            variableWidth: true,
+            autoplay: true
+            
+          });
+          $(".lazy").slick({
+            lazyLoad: 'ondemand', // ondemand progressive anticipated
+            infinite: true
+          });
+        });
+        $('.pause').on('click',function(){
+          
+          if ($(this).text() == "멈춤"){
+            $('.slider')
+          .slick('slickPause');
+          $(this).text('play');
+          }
+          else{
+            $(this).text('play');
+            $('.slider').slick('slickPlay');
+            $(this).text('멈춤');
+          }
+         
+        });
+        // $('.play').on('click',function(){
+        //   $('.slider')
+        //   .slick('slickPlay');
+          
+        // });
+ 
+
+        
+    </script>
+</body>
+</html>
